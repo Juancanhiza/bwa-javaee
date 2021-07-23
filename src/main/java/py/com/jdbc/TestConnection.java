@@ -6,9 +6,14 @@ import java.sql.SQLException;
 
 public class TestConnection {
     public static void main(String[] args) throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/hr", "root", "mysql");
-        System.out.println(con.getClass());
-        System.out.println("Connected to hr Database of MySQL.");
-        con.close();
+        // ARM: Automatic Resource Management
+        // Try with resources
+        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/hr", "root", "mysql")) {
+            System.out.println(con.getClass());
+            System.out.println("Connected to hr Database of MySQL.");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
 }
